@@ -7,33 +7,15 @@ EN / ES / NL switch.
 
 Files: `index.html` (self-contained: styles, logo SVGs, script) and `brand/` (favicon).
 
-## Publish
+## Publishing (automatic)
 
-**Simplest:** cPanel → File Manager → `public_html`: rename the current `index.html` to `index.old.html`,
-then upload `index.html` and the `brand/` folder from this repository.
+**Merge into `main` → live on windycitywares.com within ~10 minutes.** The server's deploy job (the same
+one that publishes the shop, `wcw-portal/deploy/auto-deploy.sh`) checks this repo every 10 minutes and
+copies every file except this README and dot-files into `public_html`. It never deletes anything there,
+and the homepage from before the first publish is kept as `index.old.html`.
 
-**From the server (cPanel → Terminal).** GitHub deploy keys work for one repository only, so this repo
-needs its own key, set up once:
-
-```bash
-ssh-keygen -t ed25519 -f ~/.ssh/wcw_main_deploy -N "" && cat ~/.ssh/wcw_main_deploy.pub
-# GitHub → wcw-main-site → Settings → Deploy keys → Add deploy key: paste it (read-only)
-cat >> ~/.ssh/config <<'CFG'
-Host github-wcw-main
-  HostName github.com
-  User git
-  IdentityFile ~/.ssh/wcw_main_deploy
-CFG
-git clone git@github-wcw-main:windycitywares/wcw-main-site.git ~/repos/wcw-main-site
-cp ~/public_html/index.html ~/public_html/index.old.html   # back up the old page, first time only
-```
-
-Then, each time you want to publish the latest version:
-
-```bash
-cd ~/repos/wcw-main-site && git pull
-cp index.html ~/public_html/ && mkdir -p ~/public_html/brand && cp brand/* ~/public_html/brand/
-```
+One-time setup: the server needs read access to this repo — make it public, or give it its own deploy
+key. Steps in wcw-portal `docs/DEPLOYMENT.md` → "Main site". Log: `~/logs/wcw-deploy.log`.
 
 ## Updating collections
 
