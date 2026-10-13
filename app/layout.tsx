@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders_Display, Inter } from "next/font/google";
+import { Big_Shoulders, Inter } from "next/font/google";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { site } from "@/lib/site";
@@ -7,9 +7,8 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 // Display face drawn for the City of Chicago's own signage.
-const bigShoulders = Big_Shoulders_Display({
+const bigShoulders = Big_Shoulders({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
   variable: "--font-big-shoulders",
   display: "swap",
 });
