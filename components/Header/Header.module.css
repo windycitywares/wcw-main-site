@@ -1,0 +1,145 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgb(255 255 255 / 0.94);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 4.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 2.1rem;
+  width: auto;
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.links {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links a,
+.sheetLinks a {
+  color: var(--color-ink);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.links a {
+  padding-block: 0.4rem;
+  border-bottom: 2px solid transparent;
+}
+
+.links a:hover,
+.links a[aria-current="page"] {
+  border-bottom-color: var(--color-gold);
+}
+
+.mobile {
+  position: relative;
+}
+
+.menuButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  list-style: none;
+  cursor: pointer;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-navy);
+}
+.menuButton::-webkit-details-marker {
+  display: none;
+}
+
+.burger,
+.burger::before,
+.burger::after {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+.burger {
+  position: relative;
+}
+.burger::before,
+.burger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+.burger::before {
+  top: -5px;
+}
+.burger::after {
+  top: 5px;
+}
+
+.sheet {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.6rem);
+  width: min(18rem, calc(100vw - 2rem));
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  box-shadow: 0 24px 48px -24px rgb(19 34 51 / 0.4);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.sheetLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sheetLinks a {
+  display: block;
+  padding: 0.7rem 0.25rem;
+  border-bottom: 1px solid var(--color-fog);
+  font-size: 1.05rem;
+}
+.sheetLinks a[aria-current="page"] {
+  color: var(--color-gold-ink);
+}
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: flex;
+  }
+  .mobile {
+    display: none;
+  }
+  .logo {
+    height: 2.4rem;
+  }
+}

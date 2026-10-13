@@ -1,0 +1,97 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 1;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+}
+
+.img {
+  object-fit: contain;
+  padding: 6%;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .img {
+  transform: scale(1.03);
+}
+
+.noImage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-steel);
+  font-size: 0.85rem;
+}
+
+.body {
+  padding-top: 0.8rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.link {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+/* The whole card is clickable; the title stays the accessible link text. */
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.card:hover .link {
+  text-decoration: underline;
+  text-decoration-color: var(--color-gold);
+  text-underline-offset: 3px;
+}
+
+.price {
+  font-size: 0.92rem;
+  color: var(--color-steel);
+}
+
+.stock,
+.soldOut {
+  font-size: 0.8rem;
+  color: var(--color-success);
+}
+.soldOut {
+  color: var(--color-danger);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,56 @@
+.page {
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.head {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.formBox {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+}
+
+.info {
+  display: grid;
+  gap: 2rem;
+  align-content: start;
+}
+
+.infoHeading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.05;
+  color: var(--color-navy);
+  margin-bottom: 0.35rem;
+}
+
+.muted {
+  color: var(--color-steel);
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.faq {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: clamp(3.5rem, 8vw, 5rem);
+  max-width: 50rem;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1.6fr 1fr;
+    gap: 4rem;
+  }
+}

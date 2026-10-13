@@ -1,0 +1,138 @@
+.intro {
+  background: var(--color-navy);
+  color: #fff;
+  padding-block: clamp(3rem, 8vw, 5.5rem);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  line-height: 0.92;
+}
+
+.lead {
+  margin-top: 1.25rem;
+  max-width: 36rem;
+  font-size: 1.2rem;
+  color: var(--color-mist);
+}
+
+.body {
+  display: grid;
+  gap: clamp(3rem, 7vw, 5rem);
+  padding-top: clamp(3rem, 7vw, 5rem);
+}
+
+.split {
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 18rem 1fr;
+    gap: 3rem;
+  }
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+.photoImg {
+  object-fit: cover;
+}
+
+.materials {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0;
+}
+@media (min-width: 640px) {
+  .materials {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.materials dt {
+  font-weight: 600;
+  color: var(--color-navy);
+  border-top: 2px solid var(--color-gold);
+  padding-top: 0.75rem;
+}
+.materials dd {
+  margin: 0.3rem 0 0;
+  color: var(--color-steel);
+}
+
+.team {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.person {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  max-width: 34rem;
+}
+
+.initials {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  background: var(--color-navy);
+  color: var(--color-gold);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.7rem;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.role {
+  color: var(--color-gold-ink);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.cta {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(2rem, 5vw, 3rem);
+  background: var(--color-navy);
+  border-radius: 12px;
+}
+.ctaText {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1;
+  color: #fff;
+}
+.ctaButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+@media (min-width: 900px) {
+  .cta {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}

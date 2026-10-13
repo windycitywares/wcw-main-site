@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/*
+ * WindyCityWares main site tokens. Brand: lakefront navy + lamp gold (same as the shop's logo).
+ * Display type: Big Shoulders (drawn for Chicago's civic signage). Text: Inter.
+ */
+@theme {
+  --color-navy: #1c2f45;
+  --color-navy-deep: #132233;
+  --color-gold: #e0a845;
+  --color-gold-ink: #8a5d14; /* gold for text on light backgrounds — 5.5:1 on white */
+  --color-fog: #eef1f4; /* page background: lake fog, cool not cream */
+  --color-paper: #ffffff;
+  --color-ink: #16202b;
+  --color-steel: #56636f; /* secondary text — 5.6:1 on fog */
+  --color-line: #d5dce2;
+  --color-mist: #b8c4cf; /* text on navy — 7.8:1 */
+  --color-danger: #a12a1e;
+  --color-success: #2f6b4a;
+
+  --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+:root {
+  /* Logo colours (see components/Logo) */
+  --logo-emblem: #1c2f45;
+  --logo-letters: #ffffff;
+  --logo-word: #1c2f45;
+  --logo-gold: #e0a845;
+  --logo-word-gold: #c9902f;
+}
+
+html {
+  background: var(--color-fog);
+  color: var(--color-ink);
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-navy-deep);
+}
+
+main {
+  padding-bottom: 5rem;
+}
+
+/* Shared building blocks used by pages and CSS modules */
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.005em;
+    line-height: 0.95;
+    color: var(--color-navy);
+  }
+
+  .h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1;
+    color: var(--color-navy);
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--color-steel);
+    max-width: 38rem;
+  }
+
+  .prose-wcw {
+    max-width: 42rem;
+    color: var(--color-ink);
+  }
+  .prose-wcw p + p {
+    margin-top: 1rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.875rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    background: var(--color-navy);
+    color: #fff;
+    border: 1px solid var(--color-navy);
+    transition: background-color 0.15s, color 0.15s;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: var(--color-navy-deep);
+  }
+  .btn-gold {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-navy-deep);
+  }
+  .btn-gold:hover {
+    background: #eebb5f;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-navy);
+  }
+  .btn-ghost:hover {
+    background: var(--color-navy);
+    color: #fff;
+  }
+  .btn-on-navy {
+    background: transparent;
+    color: #fff;
+    border-color: rgb(255 255 255 / 0.5);
+  }
+  .btn-on-navy:hover {
+    background: #fff;
+    color: var(--color-navy);
+  }
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .link {
+    color: var(--color-navy);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .link:hover {
+    color: var(--color-gold-ink);
+  }
+
+  .field {
+    display: block;
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--color-ink);
+    font: inherit;
+  }
+  .field:focus-visible {
+    outline-offset: 0;
+    border-color: var(--color-navy);
+  }
+  .label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .sr-only-focusable:not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
