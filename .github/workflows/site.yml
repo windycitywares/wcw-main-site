@@ -34,14 +34,20 @@ jobs:
         with:
           node-version: 20 # same major version as the server
 
+      # Failures are also reported as annotations (visible in the PR checks without opening logs).
       - name: Install
-        run: npm install --no-audit --no-fund
+        run: |
+          npm install --no-audit --no-fund > ../install.log 2>&1 || { echo "::error title=npm install::$(tail -c 3000 ../install.log | tr '\n' ' ')"; exit 1; }
+          tail -5 ../install.log
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build > ../build.log 2>&1 || { echo "::error title=next build::$(tail -c 3500 ../build.log | tr '\n' ' ')"; cat ../build.log; exit 1; }
+          cat ../build.log
 
       - name: Type check
-        run: npx tsc --noEmit
+        run: |
+          npx tsc --noEmit > ../tsc.log 2>&1 || { echo "::error title=tsc::$(head -c 3500 ../tsc.log | tr '\n' ' ')"; cat ../tsc.log; exit 1; }
 
       - name: Assemble bundle
         run: |
