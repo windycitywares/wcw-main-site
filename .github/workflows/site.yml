@@ -1,0 +1,123 @@
+# Builds the Next.js main site (windycitywares.com).
+# - Every pull request: build, type-check, smoke-test, and push page screenshots to the `previews` branch.
+# - Every push to `main`: the same checks, then the ready-to-run bundle is published to the `site-build`
+#   branch. The HostItBro server pulls that branch every 10 minutes (wcw-portal deploy/update-main-site.sh).
+#   No server credentials are stored in GitHub.
+name: Main site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write # push the site-build and previews branches
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      API_URL: ${{ vars.API_URL || 'https://api.windycitywares.com/api/v1' }}
+      SHOP_URL: ${{ vars.SHOP_URL || 'https://shop.windycitywares.com' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://windycitywares.com' }}
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20 # same major version as the server
+
+      - name: Install
+        run: npm install --no-audit --no-fund
+
+      - name: Build
+        run: npm run build
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Assemble bundle
+        run: |
+          mkdir -p bundle/.next
+          cp -a .next/standalone/. bundle/
+          cp -a .next/static bundle/.next/static
+          cp -a public bundle/public
+          printf '%s\n' "$GITHUB_SHA" > bundle/BUILD_SHA
+          du -sh bundle bundle/node_modules
+
+      - name: Smoke test the bundle
+        working-directory: bundle
+        env:
+          PORT: "3005"
+          HOSTNAME: 127.0.0.1
+        run: |
+          node server.js > ../server.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:3005/robots.txt && break; sleep 1; done
+          slug=$(curl -s "$API_URL/products?page_size=1&sort=newest" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).items[0].slug))')
+          fail=0
+          check() { # path, expected status
+            local got; got=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:3005$1")
+            echo "::notice title=smoke $1::$got (want $2)"
+            [ "$got" = "$2" ] || fail=1
+          }
+          for path in / /products "/products?category=pet-urns&sort=price_asc" "/products/$slug" /about /contact /robots.txt /sitemap.xml; do check "$path" 200; done
+          check /products/no-such-design 404
+          check /nothing-here 404
+          curl -s http://127.0.0.1:3005/ | grep -q "Treasured for a lifetime" || { echo "::error::tagline missing on /"; fail=1; }
+          curl -s "http://127.0.0.1:3005/products/$slug" | grep -q "shop.windycitywares.com/product/$slug" || { echo "::error::no shop link on product page"; fail=1; }
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"email":""}' http://127.0.0.1:3005/api/newsletter)
+          echo "::notice title=smoke newsletter validation::$code (want 400)"; [ "$code" = 400 ] || fail=1
+          if [ "$fail" = 1 ]; then
+            echo "::error title=server log::$(tail -c 1500 ../server.log | tr '\n' ' ')"
+            exit 1
+          fi
+
+      - name: Preview screenshots
+        if: github.event_name != 'push'
+        continue-on-error: true
+        working-directory: bundle
+        env:
+          PORT: "3006"
+          HOSTNAME: 127.0.0.1
+        run: |
+          node server.js > ../preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:3006/robots.txt && break; sleep 1; done
+          npx -y playwright@1.56.1 install --with-deps chromium > /dev/null
+          slug=$(curl -s "$API_URL/products?page_size=1&sort=newest" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).items[0].slug))')
+          mkdir -p ../shots
+          shoot() { # name, path, width, height
+            npx -y playwright@1.56.1 screenshot --browser chromium --viewport-size="$3,$4" --full-page --wait-for-timeout 3000 \
+              "http://127.0.0.1:3006$2" "../shots/$1.png" || echo "::warning::screenshot $1 failed"
+          }
+          shoot home-desktop / 1440 900
+          shoot home-mobile / 390 844
+          shoot products-desktop /products 1440 900
+          shoot products-mobile "/products?category=birds-wildlife" 390 844
+          shoot product-desktop "/products/$slug" 1440 900
+          shoot product-mobile "/products/$slug" 390 844
+          shoot about-desktop /about 1440 900
+          shoot contact-desktop /contact 1440 900
+          shoot contact-mobile /contact 390 844
+          cd ../shots
+          git init -q -b previews
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Previews of ${{ github.head_ref || github.ref_name }} @ ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" previews
+
+      - name: Publish to site-build branch
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        working-directory: bundle
+        run: |
+          git init -q -b site-build
+          git add -A -f .
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Main site build of ${GITHUB_SHA}"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" site-build

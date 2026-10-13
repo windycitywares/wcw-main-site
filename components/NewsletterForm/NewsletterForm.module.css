@@ -1,0 +1,38 @@
+.form {
+  width: 100%;
+  max-width: 30rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.input {
+  flex: 1 1 14rem;
+  border-radius: 999px;
+  padding-inline: 1.1rem;
+  border-color: transparent;
+}
+
+.error {
+  margin-top: 0.6rem;
+  color: #ffb4a8;
+  font-size: 0.9rem;
+}
+
+.done {
+  font-size: 1.05rem;
+  color: #fff;
+  border-left: 3px solid var(--color-gold);
+  padding-left: 0.9rem;
+}
