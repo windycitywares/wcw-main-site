@@ -15,8 +15,9 @@
 .tagline {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(3rem, 10vw, 7.25rem);
+  font-size: clamp(3rem, 9.5vw, 7.5rem);
   line-height: 0.9;
+  font-optical-sizing: auto;
   letter-spacing: -0.005em;
 }
 .tagline span {
@@ -24,10 +25,9 @@
 }
 
 .heroText {
-  max-width: 26rem;
+  max-width: 30rem;
   color: var(--color-mist);
   font-size: 1.08rem;
-  padding-bottom: 0.5rem;
 }
 
 .ctas {
@@ -70,9 +70,21 @@
   }
 }
 
+/* Wide screens: tagline across the full width, intro and buttons side by side beneath it */
 @media (min-width: 1024px) {
-  .heroInner {
-    grid-template-columns: 1fr auto;
+  .heroText {
+    max-width: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  .heroText p {
+    max-width: 30rem;
+  }
+  .ctas {
+    margin-top: 0;
+    flex-shrink: 0;
   }
 }
 

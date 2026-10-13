@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 // Display face drawn for the City of Chicago's own signage.
 const bigShoulders = Big_Shoulders({
   subsets: ["latin"],
+  axes: ["opsz"], // optical size: large headings get the narrow "display" cut
   variable: "--font-big-shoulders",
   display: "swap",
 });
