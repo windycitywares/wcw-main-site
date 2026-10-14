@@ -72,45 +72,6 @@
   color: var(--color-steel);
 }
 
-.team {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1.5rem;
-}
-
-.person {
-  display: flex;
-  gap: 1.25rem;
-  align-items: flex-start;
-  max-width: 34rem;
-}
-
-.initials {
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 999px;
-  background: var(--color-navy);
-  color: var(--color-gold);
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.7rem;
-}
-
-.name {
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-.role {
-  color: var(--color-gold-ink);
-  font-size: 0.9rem;
-  margin-bottom: 0.4rem;
-}
-
 .cta {
   display: grid;
   gap: 1.25rem;

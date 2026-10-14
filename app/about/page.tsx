@@ -94,23 +94,6 @@ export default async function AboutPage() {
           </dl>
         </section>
 
-        <section className={styles.split} aria-labelledby="team-title">
-          <h2 id="team-title" className="h2">
-            Who we are
-          </h2>
-          <ul className={styles.team}>
-            <li className={styles.person}>
-              <span className={styles.initials} aria-hidden="true">
-                QS
-              </span>
-              <div>
-                <p className={styles.name}>Qalid Saifullah</p>
-                <p className={styles.role}>Owner</p>
-              </div>
-            </li>
-          </ul>
-        </section>
-
         <section className={styles.cta} aria-label="Next steps">
           <p className={styles.ctaText}>Find a design that tells their story.</p>
           <div className={styles.ctaButtons}>
