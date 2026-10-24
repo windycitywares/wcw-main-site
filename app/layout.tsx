@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, Inter } from "next/font/google";
 import Script from "next/script";
+import { SocialRail } from "@/components/Social/Social";
+import { getSocial } from "@/lib/api";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { site } from "@/lib/site";
@@ -25,7 +27,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#1c2f45" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const social = await getSocial();
   return (
     <html lang="en" className={`${inter.variable} ${bigShoulders.variable}`}>
       <body>
@@ -38,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div id="wcw-marketplaces" />
         <Script src="https://shop.windycitywares.com/embed/marketplaces.js" strategy="lazyOnload" />
         <Footer />
+        <SocialRail accounts={social} />
       </body>
     </html>
   );
