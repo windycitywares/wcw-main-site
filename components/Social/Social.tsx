@@ -55,8 +55,8 @@ export function SocialBar({ accounts }: { accounts: SocialAccount[] }) {
   );
 }
 
-/** The Follow us section above the footer, in the same tile pattern as the marketplaces: a badge in the network's own
- *  colour, the handle and where it is. A # address is shown greyed out as Coming soon. */
+/** The Follow us row inside the dark footer, in the same tile pattern as the marketplaces: a badge in the network's own
+ *  colour, the handle and where it is. Five to a row on wide screens. A # address is shown greyed out as Coming soon. */
 export function FollowBand({ accounts }: { accounts: SocialAccount[] }) {
   if (accounts.length === 0) return null;
   return (
@@ -79,11 +79,6 @@ export function FollowBand({ accounts }: { accounts: SocialAccount[] }) {
                   <span className={styles.name}>{a.handle || p.label}</span>
                   <span className={styles.sub}>{soon ? "Coming soon" : `on ${p.label}`}</span>
                 </span>
-                {!soon && (
-                  <span aria-hidden="true" className={styles.cta} style={{ background: p.hover }}>
-                    Follow
-                  </span>
-                )}
               </>
             );
             return (
