@@ -27,7 +27,14 @@ export function SocialBar({ accounts }: { accounts: SocialAccount[] }) {
     <div className={styles.bar}>
       <div className={`wrap ${styles.barInner}`}>
         <ul className={styles.icons} aria-label="Social media">
-          {accounts.map((a) => (
+          {accounts.map((a) =>
+            a.url === "#" ? (
+              <li key={a.id}>
+                <span role="img" aria-label={`${socialOf(a.platform).label}: coming soon`} title="Coming soon" className={`${styles.icon} ${styles.soon}`}>
+                  <Glyph platform={a.platform} />
+                </span>
+              </li>
+            ) : (
             <li key={a.id}>
               <a
                 href={a.url}
@@ -40,7 +47,8 @@ export function SocialBar({ accounts }: { accounts: SocialAccount[] }) {
                 <Glyph platform={a.platform} />
               </a>
             </li>
-          ))}
+            ),
+          )}
         </ul>
       </div>
     </div>
@@ -52,7 +60,16 @@ export function FollowPills({ accounts, onDark = false }: { accounts: SocialAcco
   if (accounts.length === 0) return null;
   return (
     <ul className={styles.pills} aria-label="Follow us">
-      {accounts.map((a) => (
+      {accounts.map((a) =>
+        a.url === "#" ? (
+          <li key={a.id}>
+            <span title="Coming soon" className={`${styles.pill} ${styles.soon} ${onDark ? styles.pillDark : ""}`}>
+              <Glyph platform={a.platform} small />
+              {a.handle || socialOf(a.platform).label}
+              <small> · Coming soon</small>
+            </span>
+          </li>
+        ) : (
         <li key={a.id}>
           <a
             href={a.url}
@@ -66,7 +83,8 @@ export function FollowPills({ accounts, onDark = false }: { accounts: SocialAcco
             {a.handle || socialOf(a.platform).label}
           </a>
         </li>
-      ))}
+        ),
+      )}
     </ul>
   );
 }
