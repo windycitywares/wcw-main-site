@@ -9,15 +9,19 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "About us",
-  description: "WindyCityWares makes cremation urns and keepsakes with personal artwork, from Schaumburg, Illinois.",
+  description: "WindyCityWares hand-picks handcrafts, antiques, gifts, home décor and memorial urns, from Schaumburg, Illinois.",
   alternates: { canonical: "/about" },
 };
 
-const MATERIALS = [
-  { term: "Aluminum body", text: "Light to hold and strong enough to keep for generations." },
-  { term: "High-gloss enamel", text: "The artwork is sealed under a smooth, glossy enamel finish." },
-  { term: "Threaded screw-top lid", text: "The lid screws closed, so the ashes stay sealed and safe." },
-  { term: "Two sizes", text: "A 6 × 10 inch urn for adult ashes, and 1.5 × 3 inch keepsakes for sharing." },
+const WHAT_WE_SELL = [
+  { term: "Handcrafted", text: "Made by hand, with the maker\u2019s touch in every piece." },
+  { term: "Antiques and vintage", text: "One-of-a-kind finds with a history of their own." },
+  { term: "Gifts", text: "Thoughtful presents for birthdays, weddings and housewarmings." },
+  { term: "Home décor", text: "Pieces that make a room feel finished." },
+  {
+    term: "Memorial urns",
+    text: "Aluminum urns with artwork chosen to honor a loved one, with matching keepsakes so a family can share.",
+  },
 ];
 
 export default async function AboutPage() {
@@ -29,8 +33,8 @@ export default async function AboutPage() {
         <div className="wrap">
           <h1 className={styles.title}>About WindyCityWares</h1>
           <p className={styles.lead}>
-            We make cremation urns and keepsakes that look like the life they hold, so the place where you keep a
-            loved one feels like them.
+            A small shop outside Chicago for handcrafts, antiques, gifts, home décor and memorial urns, every piece
+            chosen with care.
           </p>
         </div>
       </section>
@@ -42,13 +46,12 @@ export default async function AboutPage() {
           </h2>
           <div className="prose-wcw">
             <p>
-              Choosing an urn usually happens in the hardest week of a family&rsquo;s life. We want that choice to be
-              simple and the result to be something you are glad to see every day: a lighthouse for someone who loved
-              the coast, a ball field for a lifelong fan, a sky full of stars for someone who looked up.
+              We look for things worth bringing home: pieces made by hand, finds with a story, and gifts that feel
+              chosen rather than bought in a hurry. Every item is selected by us, so the shop stays small and good.
             </p>
             <p>
-              Each design is printed on the urn itself and paired with matching keepsakes, so brothers, sisters and
-              children can each keep a part of the person they miss.
+              Some moments call for something especially personal. Our memorial urns carry artwork chosen to honor a
+              loved one, with matching keepsakes so a family can each keep a part of the person they miss.
             </p>
           </div>
         </section>
@@ -59,9 +62,9 @@ export default async function AboutPage() {
           </h2>
           <div className="prose-wcw">
             <p>
-              WindyCityWares began as a shop on Etsy, WindyCityWaresUS. As the number of designs grew past a
-              hundred, we opened our own store at shop.windycitywares.com, where every design is organized into
-              collections and easier to compare.
+              WindyCityWares began as a shop on Etsy, WindyCityWaresUS. As the range grew, we opened our own store at
+              shop.windycitywares.com, where everything is organized by category and easy to compare. You can still
+              find us on Etsy too.
             </p>
             <p>
               The name comes from home. We work from {site.location}, a short drive from downtown Chicago, the Windy
@@ -80,12 +83,12 @@ export default async function AboutPage() {
           </div>
         )}
 
-        <section className={styles.split} aria-labelledby="materials-title">
-          <h2 id="materials-title" className="h2">
-            Materials
+        <section className={styles.split} aria-labelledby="sell-title">
+          <h2 id="sell-title" className="h2">
+            What we sell
           </h2>
           <dl className={styles.materials}>
-            {MATERIALS.map((m) => (
+            {WHAT_WE_SELL.map((m) => (
               <div key={m.term}>
                 <dt>{m.term}</dt>
                 <dd>{m.text}</dd>
@@ -95,7 +98,7 @@ export default async function AboutPage() {
         </section>
 
         <section className={styles.cta} aria-label="Next steps">
-          <p className={styles.ctaText}>Find a design that tells their story.</p>
+          <p className={styles.ctaText}>Find something worth bringing home.</p>
           <div className={styles.ctaButtons}>
             <Link href="/products" className="btn btn-gold">
               Browse products

@@ -3,7 +3,7 @@ import type { CategoryNode } from "@/lib/types";
 import { shopCategoryUrl } from "@/lib/site";
 import styles from "./CollectionCard.module.css";
 
-/** A collection tile. Opens that collection on the shop (shop.windycitywares.com/category/<slug>). */
+/** A category tile. Opens that category on the shop (shop.windycitywares.com/category/<slug>). */
 export function CollectionCard({
   collection,
   total,
@@ -22,7 +22,7 @@ export function CollectionCard({
       </span>
       <span className={styles.name}>{collection.name}</span>
       <span className={styles.meta}>
-        {total} {total === 1 ? "design" : "designs"}
+        {total} {total === 1 ? "item" : "items"}
       </span>
     </a>
   );

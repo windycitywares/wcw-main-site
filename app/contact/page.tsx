@@ -8,7 +8,7 @@ import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
   title: "Contact us",
-  description: "Questions about an urn, a size or an order? Send WindyCityWares a message.",
+  description: "Questions about an item, shipping or an order? Send WindyCityWares a message.",
   alternates: { canonical: "/contact" },
 };
 
@@ -23,41 +23,14 @@ async function turnstileSiteKey(): Promise<string | null> {
 
 const FAQ: FaqItem[] = [
   {
-    q: "What sizes do the urns come in?",
-    a: (
-      <>
-        <p>
-          The large urn measures 6 × 10 inches and is made for a full adult&rsquo;s ashes. Keepsake urns measure 1.5 × 3
-          inches and hold a small portion.
-        </p>
-        <p>
-          Most designs are sold as a single keepsake, a set of 2 or 4 keepsakes, the large urn alone, or the large urn
-          with 2 or 4 matching keepsakes.
-        </p>
-      </>
-    ),
-  },
-  {
-    q: "What are the urns made of?",
-    a: <p>Our urns are aluminum with a high-gloss enamel finish and a threaded screw-top lid that seals securely.</p>,
-  },
-  {
-    q: "Can our family share the ashes?",
+    q: "What do you sell?",
     a: (
       <p>
-        Yes. That is what the keepsakes are for. Choose one of the sets with 2 or 4 keepsakes in the same design as the
-        large urn, so each person keeps a matching piece.
-      </p>
-    ),
-  },
-  {
-    q: "Do you make urns for pets?",
-    a: (
-      <p>
-        Yes. See the{" "}
-        <a href={shopLink("/category/pet-urns")} className="link">
-          Pet Urns collection
-        </a>
+        Handcrafted pieces, antiques and vintage finds, gifts, home décor and memorial urns with matching keepsakes.
+        Everything is hand-picked by us. See{" "}
+        <Link href="/products" className="link">
+          all products
+        </Link>
         .
       </p>
     ),
@@ -66,16 +39,48 @@ const FAQ: FaqItem[] = [
     q: "How do I place an order?",
     a: (
       <p>
-        Open any design on this site and choose <em>Choose a size and buy</em>. You&rsquo;ll go to{" "}
+        Open any item on this site and choose the button to buy it. You&rsquo;ll go to{" "}
         <a href={shopLink("/")} className="link">
           our shop
         </a>{" "}
-        to pick a size and check out. Our designs are also on{" "}
+        to choose any options, add it to your cart and check out. You can also find us on{" "}
         <a href={site.etsyUrl} className="link" rel="noopener">
           Etsy
         </a>
         .
       </p>
+    ),
+  },
+  {
+    q: "How are orders packed?",
+    a: <p>Every order is wrapped and boxed to travel safely, whatever its size, so it arrives in one piece.</p>,
+  },
+  {
+    q: "Can I ask about an item before I buy?",
+    a: (
+      <p>
+        Yes. Use the form on this page, or <em>Ask us</em> on any product page, and tell us which item you mean.
+        We&rsquo;ll reply by email.
+      </p>
+    ),
+  },
+  {
+    q: "What sizes do the memorial urns come in?",
+    a: (
+      <>
+        <p>
+          The large urn measures 6 × 10 inches and holds a full adult&rsquo;s ashes. Keepsake urns measure 1.5 × 3 inches
+          and hold a small portion, so a family can share them.
+        </p>
+        <p>
+          Most urn designs come as a single keepsake, a set of 2 or 4 keepsakes, the large urn alone, or the large urn
+          with 2 or 4 matching keepsakes. There is also a{" "}
+          <a href={shopLink("/category/pet-urns")} className="link">
+            Pet Urns
+          </a>{" "}
+          category.
+        </p>
+      </>
     ),
   },
   {
@@ -98,7 +103,7 @@ export default async function ContactPage({ searchParams }: Props) {
           Contact us
         </h1>
         <p className="lead">
-          Questions about a design, a size or an order? Send us a message and we&rsquo;ll reply by email.
+          Questions about an item, shipping or an order? Send us a message and we&rsquo;ll reply by email.
         </p>
       </header>
 
@@ -123,7 +128,7 @@ export default async function ContactPage({ searchParams }: Props) {
           <div>
             <h2 className={styles.infoHeading}>Browse first</h2>
             <Link href="/products" className="link">
-              See every design
+              See all products
             </Link>
           </div>
         </aside>

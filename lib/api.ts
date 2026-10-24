@@ -36,7 +36,7 @@ export async function getCategoryTree(): Promise<CategoryNode[]> {
   }
 }
 
-/** The collections customers browse: the leaf categories (e.g. the themes under "Cremation Urns"). */
+/** Every leaf category (e.g. the themes under "Cremation Urns"): the filter list on /products. */
 export async function getCollections(): Promise<CategoryNode[]> {
   const out: CategoryNode[] = [];
   const walk = (nodes: CategoryNode[]) =>
@@ -83,18 +83,28 @@ export async function getFacets(): Promise<Facets> {
   }
 }
 
-/** Cover photo and design count for each collection (home page). */
-export async function getCollectionPreviews(): Promise<
-  { collection: CategoryNode; total: number; image: string | null; alt: string }[]
-> {
-  const collections = await getCollections();
-  return Promise.all(
-    collections.map(async (collection) => {
-      const res = await getProducts({ category: collection.slug, page_size: "1", sort: "newest" });
-      const img = res.items[0]?.images[0];
-      return { collection, total: res.total, image: collection.image_url || img?.url || null, alt: img?.alt ?? "" };
-    }),
+export type CategoryPreview = { collection: CategoryNode; total: number; image: string | null };
+
+async function preview(collection: CategoryNode): Promise<CategoryPreview> {
+  const res = await getProducts({ category: collection.slug, page_size: "1", sort: "newest" });
+  return { collection, total: res.total, image: collection.image_url || res.items[0]?.images[0]?.url || null };
+}
+
+/**
+ * Home page "Shop by category": one group per top-level category (Handcrafts, Antiques, Gifts,
+ * Cremation Urns …) with a tile for each of its leaf categories — or one tile for the category itself
+ * when it has no sub-categories. Empty categories are left out, so new ones appear once they have items.
+ */
+export async function getCategoryGroups(): Promise<{ parent: CategoryNode; tiles: CategoryPreview[] }[]> {
+  const leavesOf = (n: CategoryNode): CategoryNode[] => (n.children.length ? n.children.flatMap(leavesOf) : [n]);
+  const tree = await getCategoryTree();
+  const groups = await Promise.all(
+    tree.map(async (parent) => ({
+      parent,
+      tiles: (await Promise.all(leavesOf(parent).map(preview))).filter((t) => t.total > 0),
+    })),
   );
+  return groups.filter((g) => g.tiles.length > 0);
 }
 
 /** Forward a form to the API from the server (contact form, newsletter). */

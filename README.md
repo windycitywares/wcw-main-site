@@ -14,9 +14,9 @@ The brand's landing page and information hub. Product data comes live from the s
 
 | Path | What's on it |
 |---|---|
-| `/` | Tagline hero, collections (each opens on the shop), featured wares, about, newsletter |
-| `/about` | Mission, story, materials |
-| `/products` | Catalog with filters (collection, price, in stock) and sorting |
+| `/` | Tagline hero, shop by category (grouped by top-level category; each opens on the shop), featured wares, about, newsletter |
+| `/about` | Mission, story, what we sell |
+| `/products` | Catalog with filters (category, price, in stock) and sorting |
 | `/products/[slug]` | Photo carousel, sizes and prices, description, specifications, reviews link, related designs; "Choose a size and buy" opens the design on the shop |
 | `/contact` | Contact form (→ API → email), location, FAQ |
 
