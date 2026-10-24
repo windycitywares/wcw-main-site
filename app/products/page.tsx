@@ -8,7 +8,7 @@ import styles from "./products.module.css";
 
 export const metadata: Metadata = {
   title: "Products",
-  description: "Every WindyCityWares cremation urn and keepsake, with filters by collection and price.",
+  description: "Everything in the WindyCityWares shop — handcrafts, antiques, gifts, home décor and memorial urns — with filters by category and price.",
   alternates: { canonical: "/products" },
 };
 
@@ -54,7 +54,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         </h1>
         <p className="lead">
           {active?.description ||
-            "Cremation urns and keepsakes in every design we make. Choose a design to see its photos, sizes and prices."}
+            "Handcrafts, antiques, gifts, home décor and memorial urns. Choose an item to see its photos, options and prices."}
         </p>
       </header>
 
@@ -67,10 +67,10 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
           >
           <form method="get" action="/products" className={styles.filters}>
             <fieldset className={styles.group}>
-              <legend className={styles.legend}>Collection</legend>
+              <legend className={styles.legend}>Category</legend>
               <label className={styles.choice}>
                 <input type="radio" name="category" value="" defaultChecked={!filters.category} />
-                All collections
+                All categories
               </label>
               {collections.map((c) => (
                 <label key={c.id} className={styles.choice}>
@@ -139,7 +139,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
 
         <section aria-labelledby="results-title">
           <h2 id="results-title" className={styles.count} aria-live="polite">
-            {result.total} {result.total === 1 ? "design" : "designs"}
+            {result.total} {result.total === 1 ? "item" : "items"}
             {pages > 1 && ` · page ${page} of ${pages}`}
           </h2>
 
@@ -147,7 +147,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
             <ProductGrid products={result.items} priorityCount={4} />
           ) : (
             <div className={styles.empty}>
-              <p>No designs match these filters.</p>
+              <p>Nothing matches these filters.</p>
               <p>
                 <Link href="/products" className="link">
                   Clear the filters

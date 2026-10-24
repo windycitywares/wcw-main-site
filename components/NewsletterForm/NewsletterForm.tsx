@@ -29,7 +29,7 @@ export function NewsletterForm() {
   if (state.kind === "done") {
     return (
       <p className={styles.done} role="status">
-        {state.message || "You're subscribed. Watch your inbox for new designs."}
+        {state.message || "You're subscribed. Watch your inbox for new arrivals."}
       </p>
     );
   }

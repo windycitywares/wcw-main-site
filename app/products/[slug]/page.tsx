@@ -15,7 +15,7 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await getProduct((await params).slug);
-  if (!product) return { title: "Design not found" };
+  if (!product) return { title: "Item not found" };
   const description = product.seo_description || excerpt(product.description, 155);
   return {
     title: product.title,
@@ -100,7 +100,7 @@ export default async function ProductPage({ params }: Props) {
 
           {variants.length > 0 ? (
             <div className={styles.sizes}>
-              <h2 className={styles.panelHeading}>Sizes and prices</h2>
+              <h2 className={styles.panelHeading}>Options and prices</h2>
               <ul>
                 {variants.map((v) => {
                   const label = Object.values(v.attributes).map(String).join(", ") || v.title;
@@ -128,14 +128,14 @@ export default async function ProductPage({ params }: Props) {
 
           <div className={styles.buy}>
             <a href={buyUrl} className="btn btn-gold">
-              Choose a size and buy
+              {variants.length > 0 || choices.length > 0 ? "Choose options and buy" : "Buy on our shop"}
             </a>
           </div>
           <p className={styles.note}>
-            Opens this design in our shop, where you pick a size, add it to your cart and check out.
+            Opens this item in our shop, where you add it to your cart and check out.
           </p>
           <p className={styles.note}>
-            Questions about this design?{" "}
+            Questions about this item?{" "}
             <Link href={`/contact?subject=${encodeURIComponent(product.title)}`} className="link">
               Ask us
             </Link>
@@ -146,7 +146,7 @@ export default async function ProductPage({ params }: Props) {
       <div className={styles.details}>
         <section aria-labelledby="desc-title" className={styles.description}>
           <h2 id="desc-title" className="h2">
-            About this design
+            About this item
           </h2>
           <div className={styles.descBody}>
             {paragraphs(product.description).map((p, i) => (
@@ -191,7 +191,7 @@ export default async function ProductPage({ params }: Props) {
               More from {category.name}
             </h2>
             <a href={shopCategoryUrl(category.slug)} className="link">
-              See the whole collection
+              See the whole category
             </a>
           </div>
           <ProductGrid products={related} />

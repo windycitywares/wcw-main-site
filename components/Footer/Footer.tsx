@@ -28,7 +28,7 @@ export function Footer() {
         <nav aria-label="Shop" className={styles.col}>
           <h2 className={styles.heading}>Shop</h2>
           <ul>
-            <li><a href={shopLink("/shop")}>All designs</a></li>
+            <li><a href={shopLink("/shop")}>All products</a></li>
             <li><a href={shopLink("/cart")}>Your cart</a></li>
             <li><a href={shopLink("/account")}>Your account</a></li>
             <li><a href={site.etsyUrl} rel="noopener">Etsy shop</a></li>

@@ -6,7 +6,7 @@ export const site = {
   legalName: "WindyCityWares LLC",
   tagline: ["Crafted with care.", "Designed with purpose.", "Treasured for a lifetime."],
   description:
-    "Cremation urns and matching keepsakes with artwork chosen to honor a loved one. Crafted with care. Designed with purpose. Treasured for a lifetime.",
+    "WindyCityWares: handcrafts, antiques, gifts, home décor and memorial urns, chosen with care and shipped to your door. Crafted with care. Designed with purpose. Treasured for a lifetime.",
   location: "Schaumburg, Illinois",
   url: trim(process.env.SITE_URL || "https://windycitywares.com"),
   shopUrl: trim(process.env.SHOP_URL || "https://shop.windycitywares.com"),
