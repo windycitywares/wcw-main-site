@@ -51,6 +51,51 @@ export function SocialIcons({ accounts, className = "" }: { accounts: SocialAcco
   );
 }
 
+/** The floating rail in the right middle of every page: a round badge per account in its network's colour. Hovering or
+ *  focusing one slides out "Follow us on Instagram". Hidden on small screens, where the Menu and the footer carry the links. */
+export function SocialRail({ accounts }: { accounts: SocialAccount[] }) {
+  if (accounts.length === 0) return null;
+  return (
+    <nav className={styles.rail} aria-label="Social media">
+      <ul>
+        {accounts.map((a) => {
+          const p = socialOf(a.platform);
+          const soon = a.url === "#";
+          const inner = (
+            <>
+              <span className={styles.label} aria-hidden="true">
+                {soon ? `${p.label}: coming soon` : `Follow us on ${p.label}`}
+              </span>
+              <span className={`${styles.railBadge} ${soon ? styles.railSoon : ""}`} style={soon ? undefined : { background: p.hover }}>
+                <Glyph platform={a.platform} />
+              </span>
+            </>
+          );
+          return (
+            <li key={a.id}>
+              {soon ? (
+                <span role="img" aria-label={`${p.label}: coming soon`} className={styles.railItem}>
+                  {inner}
+                </span>
+              ) : (
+                <a
+                  href={a.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow us on ${p.label} (opens in a new tab)`}
+                  className={styles.railItem}
+                >
+                  {inner}
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
+
 /** The Follow us row inside the dark footer, in the same tile pattern as the marketplaces: a badge in the network's own
  *  colour, the handle and where it is. Five to a row on wide screens. A # address is shown greyed out as Coming soon. */
 export function FollowBand({ accounts }: { accounts: SocialAccount[] }) {

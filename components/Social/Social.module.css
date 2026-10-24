@@ -126,3 +126,82 @@ a.tile:focus-visible {
   display: block;
   font-size: 0.8rem;
 }
+
+/* Floating rail, right middle of the page (option B) */
+.rail {
+  position: fixed;
+  top: 50%;
+  right: 0.75rem;
+  z-index: 15; /* under the sticky header (20) */
+  transform: translateY(-50%);
+  display: none;
+}
+.rail ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.railItem {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+}
+.railBadge {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: #fff;
+  /* a white ring and soft shadow keep near-black badges (TikTok, X) visible on the navy hero */
+  box-shadow: 0 0 0 2px #fff, 0 4px 12px rgb(19 34 51 / 0.25);
+  transition: transform 0.15s;
+}
+.railSoon {
+  background: var(--color-steel);
+  opacity: 0.6;
+}
+.label {
+  position: absolute;
+  right: calc(100% + 0.6rem);
+  top: 50%;
+  transform: translate(0.5rem, -50%);
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  background: var(--color-navy-deep);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.railItem:hover .label,
+.railItem:focus-visible .label {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+a.railItem:hover .railBadge,
+a.railItem:focus-visible .railBadge {
+  transform: scale(1.1);
+}
+@media (min-width: 48rem) and (min-height: 34rem) {
+  .rail {
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .railBadge,
+  .label {
+    transition: none;
+  }
+}
+@media print {
+  .rail {
+    display: none;
+  }
+}

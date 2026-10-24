@@ -17,7 +17,6 @@ export async function Header() {
 
         <nav aria-label="Main" className={styles.desktopNav}>
           <NavLinks className={styles.links} />
-          <SocialIcons accounts={social} className={styles.social} />
           <a href={shopLink("/shop")} className="btn">
             Shop
           </a>
