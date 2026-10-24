@@ -31,7 +31,6 @@ export function Footer() {
             <li><a href={shopLink("/shop")}>All products</a></li>
             <li><a href={shopLink("/cart")}>Your cart</a></li>
             <li><a href={shopLink("/account")}>Your account</a></li>
-            <li><a href={site.etsyUrl} rel="noopener">Etsy shop</a></li>
           </ul>
         </nav>
       </div>
