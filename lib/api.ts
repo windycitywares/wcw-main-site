@@ -1,5 +1,5 @@
 /**
- * Server-side access to the shop's Python API (FastAPI at api.windycitywares.com), which reads the
+ * Server-side access to the shop's Python API (FastAPI at shop-api.windycitywares.com), which reads the
  * shop.windycitywares.com catalog database and returns only published products.
  * Only Server Components and route handlers call this — browsers never talk to the API directly.
  * Reads are cached and refreshed every few minutes; a failed request degrades to an empty result
@@ -8,7 +8,7 @@
 import "server-only";
 import type { CategoryNode, Facets, Page, Product, ProductDetail } from "./types";
 
-export const API_URL = (process.env.API_URL || "https://api.windycitywares.com/api/v1").replace(/\/$/, "");
+export const API_URL = (process.env.API_URL || "https://shop-api.windycitywares.com/api/v1").replace(/\/$/, "");
 const REVALIDATE_SECONDS = 300;
 
 class ApiError extends Error {

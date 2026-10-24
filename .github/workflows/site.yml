@@ -1,7 +1,7 @@
 # Builds the Next.js main site (windycitywares.com).
 # - Every pull request: build, type-check, smoke-test, and push page screenshots to the `previews` branch.
 # - Every push to `main`: the same checks, then the ready-to-run bundle is published to the `site-build`
-#   branch. The HostItBro server pulls that branch every 10 minutes (wcw-portal deploy/update-main-site.sh).
+#   branch. The HostItBro server pulls that branch every 10 minutes (wcw-shop-portal deploy/update-main-site.sh).
 #   No server credentials are stored in GitHub.
 name: Main site
 
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      API_URL: ${{ vars.API_URL || 'https://api.windycitywares.com/api/v1' }}
+      API_URL: ${{ vars.API_URL || 'https://shop-api.windycitywares.com/api/v1' }}
       SHOP_URL: ${{ vars.SHOP_URL || 'https://shop.windycitywares.com' }}
       SITE_URL: ${{ vars.SITE_URL || 'https://windycitywares.com' }}
       NEXT_TELEMETRY_DISABLED: "1"
@@ -77,6 +77,10 @@ jobs:
           check /products/no-such-design 404
           check /nothing-here 404
           curl -s http://127.0.0.1:3005/ | grep -q "Treasured for a lifetime" || { echo "::error::tagline missing on /"; fail=1; }
+          # Pages degrade to empty sections when the API can't be reached — catch that here.
+          [ -n "$slug" ] || { echo "::error::could not read a product from $API_URL — is the API address right?"; fail=1; }
+          curl -s http://127.0.0.1:3005/ | grep -q 'href="/products/' || { echo "::error::home page shows no products — check API_URL ($API_URL)"; fail=1; }
+          curl -s http://127.0.0.1:3005/ | grep -q 'shop.windycitywares.com/category/' || { echo "::error::home page shows no collections — check API_URL ($API_URL)"; fail=1; }
           curl -s "http://127.0.0.1:3005/products/$slug" | grep -q "shop.windycitywares.com/product/$slug" || { echo "::error::no shop link on product page"; fail=1; }
           code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"email":""}' http://127.0.0.1:3005/api/newsletter)
           echo "::notice title=smoke newsletter validation::$code (want 400)"; [ "$code" = 400 ] || fail=1

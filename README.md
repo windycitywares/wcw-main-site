@@ -7,7 +7,7 @@ The brand's landing page and information hub. Product data comes live from the s
 |---|---|
 | Framework | Next.js (App Router, server rendering), React 19, TypeScript |
 | Styling | Tailwind CSS v4 (tokens, `app/globals.css`) + CSS Modules per component |
-| Data | `lib/api.ts` → shop API (FastAPI, `api.windycitywares.com`, repo wcw-portal) |
+| Data | `lib/api.ts` → shop API (FastAPI, `shop-api.windycitywares.com`, repo wcw-shop-portal) |
 | Hosting | HostItBro cPanel "Setup Node.js App" (Node 20) on windycitywares.com |
 
 ## Pages
@@ -22,7 +22,7 @@ The brand's landing page and information hub. Product data comes live from the s
 
 ## How data flows
 
-Browser → **Next.js server** (this app) → **Python API** (`api.windycitywares.com`, FastAPI) →
+Browser → **Next.js server** (this app) → **Python API** (`shop-api.windycitywares.com`, FastAPI) →
 shop database. The API returns published products only; this app caches responses for a few minutes
 (`revalidate`). Browsers never call the API directly: the contact form and newsletter post to this
 app's `/api/contact` and `/api/newsletter`, which forward them to the API server-side.
@@ -43,8 +43,8 @@ npm run typecheck
 1. GitHub Actions (`.github/workflows/site.yml`) builds the site, type-checks it, smoke-tests every
    page against the live API, and publishes the ready-to-run bundle to the `site-build` branch.
    Pull requests get the same checks plus screenshots on the `previews` branch.
-2. On the server, the 10-minute deploy job (wcw-portal `deploy/auto-deploy.sh` →
+2. On the server, the 10-minute deploy job (wcw-shop-portal `deploy/auto-deploy.sh` →
    `deploy/update-main-site.sh`) installs a new `site-build` and restarts the Node.js app.
 
-Server details, access setup (needed once this repo is private) and rollback: wcw-portal
+Server details, access setup (needed once this repo is private) and rollback: wcw-shop-portal
 `docs/DEPLOYMENT.md` → "Main site".

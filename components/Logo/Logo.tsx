@@ -1,4 +1,4 @@
-// WindyCityWares logo — identical to the shop's (wcw-portal frontend/src/components/ui/Logo.tsx).
+// WindyCityWares logo — identical to the shop's (wcw-shop-portal frontend/src/components/ui/Logo.tsx).
 // Brand: navy #1c2f45, gold #e0a845 (text gold #c9902f). Full kit in /public/brand.
 
 const WCW_LETTERS = "M212.0 0 8.0 -700H172.0L298.0 -248L418.0 -700H578.0L700.0 -256L825.0 -700H989.0L784.0 0H616.0L498.0 -450L379.0 0ZM1628.8 0 1424.8 -700H1588.8L1714.8 -248L1834.8 -700H1994.8L2116.8 -256L2241.8 -700H2405.8L2200.8 0H2032.8L1914.8 -450L1795.8 0Z";

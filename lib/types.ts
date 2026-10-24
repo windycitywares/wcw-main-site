@@ -1,4 +1,4 @@
-// Mirrors the shop API (api.windycitywares.com) — only the fields this site uses.
+// Mirrors the shop API (shop-api.windycitywares.com) — only the fields this site uses.
 
 export type StockStatus = "in_stock" | "out_of_stock" | "backorder" | "preorder";
 export type AttributeValue = string | number | boolean | Array<string | number>;
