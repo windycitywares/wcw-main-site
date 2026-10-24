@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, Inter } from "next/font/google";
+import Script from "next/script";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { site } from "@/lib/site";
@@ -33,6 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <Header />
         <main id="main">{children}</main>
+        {/* Marketplaces band: managed in the shop's Admin → Settings → Marketplaces and served by the shop. */}
+        <div id="wcw-marketplaces" />
+        <Script src="https://shop.windycitywares.com/embed/marketplaces.js" strategy="lazyOnload" />
         <Footer />
       </body>
     </html>
