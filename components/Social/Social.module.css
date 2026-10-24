@@ -71,3 +71,17 @@
 .pillDark:focus-visible {
   background: #fff;
 }
+
+.soon {
+  opacity: 0.6;
+  cursor: default;
+}
+.soon:hover {
+  color: inherit;
+  border-color: var(--color-line);
+}
+.pillDark.soon:hover {
+  background: transparent;
+  border-color: rgb(255 255 255 / 0.25);
+  color: #fff;
+}
