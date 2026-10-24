@@ -30,7 +30,7 @@ export function SocialBar({ accounts }: { accounts: SocialAccount[] }) {
           {accounts.map((a) =>
             a.url === "#" ? (
               <li key={a.id}>
-                <span role="img" aria-label={`${socialOf(a.platform).label}: coming soon`} title="Coming soon" className={`${styles.icon} ${styles.soon}`}>
+                <span role="img" aria-label={`${socialOf(a.platform).label}: coming soon`} title="Coming soon" className={`${styles.icon} ${styles.iconSoon}`}>
                   <Glyph platform={a.platform} />
                 </span>
               </li>
@@ -55,36 +55,60 @@ export function SocialBar({ accounts }: { accounts: SocialAccount[] }) {
   );
 }
 
-/** "Follow us" buttons with the handle, so visitors know what to search for. */
-export function FollowPills({ accounts, onDark = false }: { accounts: SocialAccount[]; onDark?: boolean }) {
+/** The Follow us section above the footer, in the same tile pattern as the marketplaces: a badge in the network's own
+ *  colour, the handle and where it is. A # address is shown greyed out as Coming soon. */
+export function FollowBand({ accounts }: { accounts: SocialAccount[] }) {
   if (accounts.length === 0) return null;
   return (
-    <ul className={styles.pills} aria-label="Follow us">
-      {accounts.map((a) =>
-        a.url === "#" ? (
-          <li key={a.id}>
-            <span title="Coming soon" className={`${styles.pill} ${styles.soon} ${onDark ? styles.pillDark : ""}`}>
-              <Glyph platform={a.platform} small />
-              {a.handle || socialOf(a.platform).label}
-              <small> · Coming soon</small>
-            </span>
-          </li>
-        ) : (
-        <li key={a.id}>
-          <a
-            href={a.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Follow us on ${socialOf(a.platform).label} (opens in a new tab)`}
-            style={colour(a.platform)}
-            className={`${styles.pill} ${onDark ? styles.pillDark : ""}`}
-          >
-            <Glyph platform={a.platform} small />
-            {a.handle || socialOf(a.platform).label}
-          </a>
-        </li>
-        ),
-      )}
-    </ul>
+    <section className={styles.band} aria-labelledby="follow-heading">
+      <div className="wrap">
+        <h2 id="follow-heading" className={styles.title}>
+          Follow us
+        </h2>
+        <p className={styles.intro}>See new designs, behind-the-scenes and offers first.</p>
+        <ul className={styles.tiles}>
+          {accounts.map((a) => {
+            const p = socialOf(a.platform);
+            const soon = a.url === "#";
+            const inner = (
+              <>
+                <span aria-hidden="true" className={styles.badge} style={{ background: p.hover }}>
+                  <Glyph platform={a.platform} />
+                </span>
+                <span className={styles.text}>
+                  <span className={styles.name}>{a.handle || p.label}</span>
+                  <span className={styles.sub}>{soon ? "Coming soon" : `on ${p.label}`}</span>
+                </span>
+                {!soon && (
+                  <span aria-hidden="true" className={styles.cta} style={{ background: p.hover }}>
+                    Follow
+                  </span>
+                )}
+              </>
+            );
+            return (
+              <li key={a.id}>
+                {soon ? (
+                  <div className={`${styles.tile} ${styles.soon}`} style={{ borderLeftColor: p.hover }}>
+                    {inner}
+                  </div>
+                ) : (
+                  <a
+                    href={a.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow us on ${p.label} (opens in a new tab)`}
+                    className={styles.tile}
+                    style={{ borderLeftColor: p.hover }}
+                  >
+                    {inner}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
   );
 }

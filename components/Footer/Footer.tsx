@@ -1,12 +1,9 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo/Logo";
-import { FollowPills } from "@/components/Social/Social";
-import { getSocial } from "@/lib/api";
 import { site, shopLink } from "@/lib/site";
 import styles from "./Footer.module.css";
 
-export async function Footer() {
-  const social = await getSocial();
+export function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={`wrap ${styles.grid}`}>
@@ -17,12 +14,6 @@ export async function Footer() {
               <span key={line}>{line}</span>
             ))}
           </p>
-          {social.length > 0 && (
-            <div className={styles.follow}>
-              <p className={styles.heading}>Follow us</p>
-              <FollowPills accounts={social} onDark />
-            </div>
-          )}
         </div>
 
         <nav aria-label="Site" className={styles.col}>
