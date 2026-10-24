@@ -1,13 +1,32 @@
-.bar {
-  background: var(--color-navy-deep);
-  color: var(--color-mist);
-}
-.barInner {
+.icons {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: flex-end;
-  min-height: 2.25rem;
+  flex-wrap: wrap;
+  align-items: center;
 }
-.icons,
+.icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem; /* 44px tap target */
+  height: 2.75rem;
+  color: var(--color-navy);
+  transition: color 0.15s;
+}
+a.icon:hover,
+a.icon:focus-visible {
+  color: var(--social-hover);
+}
+.iconSoon {
+  opacity: 0.45;
+  cursor: default;
+}
+.glyph {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
 
 .band {
   margin-top: 2.5rem;
@@ -106,8 +125,4 @@ a.tile:focus-visible {
 .sub {
   display: block;
   font-size: 0.8rem;
-}
-.iconSoon {
-  opacity: 0.6;
-  cursor: default;
 }

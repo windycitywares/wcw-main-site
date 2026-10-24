@@ -143,3 +143,10 @@
     height: 2.4rem;
   }
 }
+
+.social {
+  margin-inline: -0.5rem 0;
+}
+.sheetSocial {
+  justify-content: flex-start;
+}
