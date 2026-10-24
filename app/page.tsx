@@ -2,17 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { CollectionCard } from "@/components/CollectionCard/CollectionCard";
 import { NewsletterForm } from "@/components/NewsletterForm/NewsletterForm";
+import { FollowPills } from "@/components/Social/Social";
 import { ProductGrid } from "@/components/ProductCard/ProductCard";
-import { getCategoryGroups, getProducts } from "@/lib/api";
+import { getCategoryGroups, getProducts, getSocial } from "@/lib/api";
 import { site, shopCategoryUrl, shopLink } from "@/lib/site";
 import styles from "./page.module.css";
 
 export const revalidate = 300;
 
 export default async function HomePage() {
-  const [groups, featured] = await Promise.all([
+  const [groups, featured, social] = await Promise.all([
     getCategoryGroups(),
     getProducts({ sort: "newest", page_size: "8" }),
+    getSocial(),
   ]);
   const band = featured.items.slice(0, 5).filter((p) => p.images[0]);
 
@@ -120,6 +122,16 @@ export default async function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* Follow us: Admin → Settings → Social media in the shop */}
+      {social.length > 0 && (
+        <section className={`wrap ${styles.follow}`} aria-labelledby="follow-title">
+          <h2 id="follow-title" className={styles.followTitle}>
+            Follow us
+          </h2>
+          <FollowPills accounts={social} />
+        </section>
+      )}
 
       {/* Newsletter */}
       <section className={styles.newsletter} aria-labelledby="newsletter-title">

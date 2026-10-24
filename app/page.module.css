@@ -194,3 +194,18 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.follow {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+.followTitle {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  color: var(--color-navy);
+}
