@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo/Logo";
+import { FollowBand } from "@/components/Social/Social";
+import { getSocial } from "@/lib/api";
 import { site, shopLink } from "@/lib/site";
 import styles from "./Footer.module.css";
 
-export function Footer() {
+export async function Footer() {
+  const social = await getSocial();
   return (
     <footer className={styles.footer}>
       <div className={`wrap ${styles.grid}`}>
@@ -34,6 +37,7 @@ export function Footer() {
           </ul>
         </nav>
       </div>
+      <FollowBand accounts={social} />
       <div className={`wrap ${styles.legal}`}>
         <p>
           © {new Date().getFullYear()} {site.legalName}, {site.location}
