@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, Inter } from "next/font/google";
 import Script from "next/script";
 import { Header } from "@/components/Header/Header";
+import { SocialBar } from "@/components/Social/Social";
+import { getSocial } from "@/lib/api";
 import { Footer } from "@/components/Footer/Footer";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -25,13 +27,15 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#1c2f45" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const social = await getSocial();
   return (
     <html lang="en" className={`${inter.variable} ${bigShoulders.variable}`}>
       <body>
         <a href="#main" className="sr-only-focusable btn" style={{ position: "absolute", left: 16, top: 12, zIndex: 50 }}>
           Skip to content
         </a>
+        <SocialBar accounts={social} />
         <Header />
         <main id="main">{children}</main>
         {/* Marketplaces band: managed in the shop's Admin → Settings → Marketplaces and served by the shop. */}

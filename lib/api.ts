@@ -6,6 +6,7 @@
  * so pages still render.
  */
 import "server-only";
+import type { SocialAccount } from "./social";
 import type { CategoryNode, Facets, Page, Product, ProductDetail } from "./types";
 
 export const API_URL = (process.env.API_URL || "https://shop-api.windycitywares.com/api/v1").replace(/\/$/, "");
@@ -27,6 +28,16 @@ async function get<T>(path: string, revalidate = REVALIDATE_SECONDS): Promise<T>
 }
 
 const emptyPage = (page_size = 24): Page<Product> => ({ items: [], total: 0, page: 1, page_size });
+
+/** Social media accounts the owner keeps in the shop's Admin → Settings → Social media. */
+export async function getSocial(): Promise<SocialAccount[]> {
+  try {
+    const config = await get<{ social?: SocialAccount[] }>("/shop/config", 60);
+    return config.social ?? [];
+  } catch {
+    return [];
+  }
+}
 
 export async function getCategoryTree(): Promise<CategoryNode[]> {
   try {
