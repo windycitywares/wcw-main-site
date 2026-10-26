@@ -5,6 +5,7 @@ import { getCollections, getFacets, getProducts, type ProductQuery } from "@/lib
 import { shopLink } from "@/lib/site";
 import { FiltersDisclosure } from "./FiltersDisclosure";
 import styles from "./products.module.css";
+import { ShopLink } from "@/components/ShopLink/ShopLink";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -152,7 +153,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
                 <Link href="/products" className="link">
                   Clear the filters
                 </Link>{" "}
-                or browse <a href={shopLink("/shop")} className="link">the whole shop</a>.
+                or browse <ShopLink href={shopLink("/shop")} className="link">the whole shop</ShopLink>.
               </p>
             </div>
           )}

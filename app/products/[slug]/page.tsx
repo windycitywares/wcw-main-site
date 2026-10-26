@@ -8,6 +8,7 @@ import { getProduct, getProducts } from "@/lib/api";
 import { STOCK_LABEL, excerpt, money, options, paragraphs, specifications } from "@/lib/format";
 import { site, shopCategoryUrl, shopProductUrl } from "@/lib/site";
 import styles from "./product.module.css";
+import { ShopLink } from "@/components/ShopLink/ShopLink";
 
 export const revalidate = 300;
 
@@ -127,9 +128,9 @@ export default async function ProductPage({ params }: Props) {
           )}
 
           <div className={styles.buy}>
-            <a href={buyUrl} className="btn btn-gold">
+            <ShopLink href={buyUrl} className="btn btn-gold">
               {variants.length > 0 || choices.length > 0 ? "Choose options and buy" : "Buy on our shop"}
-            </a>
+            </ShopLink>
           </div>
           <p className={styles.note}>
             Opens this item in our shop, where you add it to your cart and check out.
@@ -177,9 +178,9 @@ export default async function ProductPage({ params }: Props) {
               Reviews
             </h2>
             <p>Our customer reviews are collected on Etsy, where we first opened our shop.</p>
-            <a href={site.etsyReviewsUrl} rel="noopener" className="link">
+            <ShopLink href={site.etsyReviewsUrl} className="link">
               Read reviews on Etsy
-            </a>
+            </ShopLink>
           </section>
         </div>
       </div>
@@ -190,9 +191,9 @@ export default async function ProductPage({ params }: Props) {
             <h2 id="related-title" className="h2">
               More from {category.name}
             </h2>
-            <a href={shopCategoryUrl(category.slug)} className="link">
+            <ShopLink href={shopCategoryUrl(category.slug)} className="link">
               See the whole category
-            </a>
+            </ShopLink>
           </div>
           <ProductGrid products={related} />
         </section>

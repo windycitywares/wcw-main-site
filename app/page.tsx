@@ -6,6 +6,7 @@ import { ProductGrid } from "@/components/ProductCard/ProductCard";
 import { getCategoryGroups, getProducts } from "@/lib/api";
 import { site, shopCategoryUrl, shopLink } from "@/lib/site";
 import styles from "./page.module.css";
+import { ShopLink } from "@/components/ShopLink/ShopLink";
 
 export const revalidate = 300;
 
@@ -35,9 +36,9 @@ export default async function HomePage() {
               <a href="#categories" className="btn btn-gold">
                 Shop by category
               </a>
-              <a href={shopLink("/shop")} className="btn btn-on-navy">
+              <ShopLink href={shopLink("/shop")} className="btn btn-on-navy">
                 Visit the shop
-              </a>
+              </ShopLink>
             </div>
           </div>
         </div>
@@ -69,7 +70,7 @@ export default async function HomePage() {
               {/* A group heading only helps when there is more than one group or the tiles are sub-categories */}
               {(groups.length > 1 || tiles[0]?.collection.id !== parent.id) && (
                 <h3 className={styles.groupTitle}>
-                  <a href={shopCategoryUrl(parent.slug)}>{parent.name}</a>
+                  <ShopLink href={shopCategoryUrl(parent.slug)}>{parent.name}</ShopLink>
                 </h3>
               )}
               <ul className={styles.collections}>

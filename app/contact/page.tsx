@@ -5,6 +5,7 @@ import { Faq, type FaqItem } from "@/components/Faq/Faq";
 import { API_URL } from "@/lib/api";
 import { site, shopLink } from "@/lib/site";
 import styles from "./contact.module.css";
+import { ShopLink } from "@/components/ShopLink/ShopLink";
 
 export const metadata: Metadata = {
   title: "Contact us",
@@ -40,13 +41,13 @@ const FAQ: FaqItem[] = [
     a: (
       <p>
         Open any item on this site and choose the button to buy it. You&rsquo;ll go to{" "}
-        <a href={shopLink("/")} className="link">
+        <ShopLink href={shopLink("/")} className="link">
           our shop
-        </a>{" "}
+        </ShopLink>{" "}
         to choose any options, add it to your cart and check out. You can also find us on{" "}
-        <a href={site.etsyUrl} className="link" rel="noopener">
+        <ShopLink href={site.etsyUrl} className="link">
           Etsy
-        </a>
+        </ShopLink>
         .
       </p>
     ),
@@ -75,9 +76,9 @@ const FAQ: FaqItem[] = [
         <p>
           Most urn designs come as a single keepsake, a set of 2 or 4 keepsakes, the large urn alone, or the large urn
           with 2 or 4 matching keepsakes. There is also a{" "}
-          <a href={shopLink("/category/pet-urns")} className="link">
+          <ShopLink href={shopLink("/category/pet-urns")} className="link">
             Pet Urns
-          </a>{" "}
+          </ShopLink>{" "}
           category.
         </p>
       </>
@@ -121,9 +122,9 @@ export default async function ContactPage({ searchParams }: Props) {
           <div>
             <h2 className={styles.infoHeading}>Bought on Etsy?</h2>
             <p className={styles.muted}>You can also message us through your Etsy order.</p>
-            <a href={site.etsyUrl} rel="noopener" className="link">
+            <ShopLink href={site.etsyUrl} className="link">
               Our Etsy shop
-            </a>
+            </ShopLink>
           </div>
           <div>
             <h2 className={styles.infoHeading}>Browse first</h2>
