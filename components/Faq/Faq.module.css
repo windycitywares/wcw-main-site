@@ -22,7 +22,7 @@
   display: none;
 }
 .q:hover {
-  color: var(--color-navy);
+  color: var(--color-heading);
 }
 
 .icon {

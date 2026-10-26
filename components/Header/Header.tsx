@@ -6,6 +6,7 @@ import { shopLink } from "@/lib/site";
 import { NavLinks } from "./NavLinks";
 import styles from "./Header.module.css";
 import { ShopLink } from "@/components/ShopLink/ShopLink";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher/ThemeSwitcher";
 
 export async function Header() {
   const social = await getSocial();
@@ -18,12 +19,15 @@ export async function Header() {
 
         <nav aria-label="Main" className={styles.desktopNav}>
           <NavLinks className={styles.links} />
+          <ThemeSwitcher />
           <ShopLink href={shopLink("/shop")} className="btn">
             Shop
           </ShopLink>
         </nav>
 
-        {/* Small screens: a disclosure menu that works without JavaScript */}
+        {/* Small screens: the theme switch beside a disclosure menu that works without JavaScript */}
+        <div className={styles.mobileBar}>
+        <ThemeSwitcher />
         <details className={styles.mobile}>
           <summary className={styles.menuButton}>
             <span className={styles.burger} aria-hidden="true" />
@@ -37,6 +41,7 @@ export async function Header() {
             </ShopLink>
           </nav>
         </details>
+        </div>
       </div>
     </header>
   );

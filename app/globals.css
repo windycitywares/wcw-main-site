@@ -7,6 +7,7 @@
 @theme {
   --color-navy: #1c2f45;
   --color-navy-deep: #132233;
+  --color-heading: #1c2f45; /* headings and links: navy on light, light on dark */
   --color-gold: #e0a845;
   --color-gold-ink: #8a5d14; /* gold for text on light backgrounds — 5.5:1 on white */
   --color-fog: #eef1f4; /* page background: lake fog, cool not cream */
@@ -29,6 +30,37 @@
   --logo-word: #1c2f45;
   --logo-gold: #e0a845;
   --logo-word-gold: #c9902f;
+  color-scheme: light;
+}
+
+/*
+ * Dark theme ("midnight", same name and values as the shop's). The visitor's choice is shared with
+ * shop.windycitywares.com and the CRM through the wcw-theme cookie (lib/theme.ts). Navy stays the
+ * colour of bands and buttons; product photos keep their white mats.
+ */
+html[data-theme="midnight"] {
+  --color-fog: #0f151c;
+  --color-paper: #17202a;
+  --color-ink: #e8edf1;
+  --color-steel: #a3b0bb; /* 7.6:1 on fog */
+  --color-line: #2c3a47;
+  --color-mist: #a3b0bb;
+  --color-heading: #e8edf1;
+  --color-gold-ink: #e3ad4f; /* 8.4:1 on fog */
+  --color-navy-deep: #0a0e13;
+  --color-danger: #ff9585;
+  --color-success: #7fd1a1;
+  --logo-emblem: #ffffff;
+  --logo-letters: #1c2f45;
+  --logo-word: #ffffff;
+  --logo-word-gold: #e3ad4f;
+  color-scheme: dark;
+}
+
+/* A short cross-fade while switching themes (not on page load) */
+html.theme-switching,
+html.theme-switching * {
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s !important;
 }
 
 html {
@@ -90,7 +122,7 @@ main {
     font-weight: 700;
     letter-spacing: 0.005em;
     line-height: 0.95;
-    color: var(--color-navy);
+    color: var(--color-heading);
   }
 
   .h2 {
@@ -98,7 +130,7 @@ main {
     font-weight: 700;
     font-size: clamp(2rem, 4.5vw, 3rem);
     line-height: 1;
-    color: var(--color-navy);
+    color: var(--color-heading);
   }
 
   .lead {
@@ -146,7 +178,8 @@ main {
   }
   .btn-ghost {
     background: transparent;
-    color: var(--color-navy);
+    color: var(--color-heading);
+    border-color: var(--color-heading);
   }
   .btn-ghost:hover {
     background: var(--color-navy);
@@ -167,7 +200,7 @@ main {
   }
 
   .link {
-    color: var(--color-navy);
+    color: var(--color-heading);
     text-decoration: underline;
     text-decoration-color: var(--color-gold);
     text-decoration-thickness: 2px;
@@ -184,13 +217,13 @@ main {
     padding: 0.6rem 0.8rem;
     border: 1px solid var(--color-line);
     border-radius: 6px;
-    background: #fff;
+    background: var(--color-paper);
     color: var(--color-ink);
     font: inherit;
   }
   .field:focus-visible {
     outline-offset: 0;
-    border-color: var(--color-navy);
+    border-color: var(--color-heading);
   }
   .label {
     display: block;
@@ -208,4 +241,16 @@ main {
     clip: rect(0 0 0 0);
     white-space: nowrap;
   }
+}
+
+/* The marketplaces band is drawn by the shop's embed script with fixed light colours: follow the dark theme here. */
+html[data-theme="midnight"] .wcw-mk p,
+html[data-theme="midnight"] .wcw-mk .s {
+  color: var(--color-steel);
+}
+html[data-theme="midnight"] .wcw-mk a,
+html[data-theme="midnight"] .wcw-mk .soon {
+  background: var(--color-paper);
+  border-color: var(--color-line);
+  color: var(--color-ink);
 }

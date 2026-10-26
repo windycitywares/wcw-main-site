@@ -29,7 +29,7 @@
   font-weight: 700;
   font-size: 1.45rem;
   line-height: 1.05;
-  color: var(--color-navy);
+  color: var(--color-heading);
 }
 .card:hover .name {
   color: var(--color-gold-ink);

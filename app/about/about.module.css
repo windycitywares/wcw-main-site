@@ -63,7 +63,7 @@
 }
 .materials dt {
   font-weight: 600;
-  color: var(--color-navy);
+  color: var(--color-heading);
   border-top: 2px solid var(--color-gold);
   padding-top: 0.75rem;
 }

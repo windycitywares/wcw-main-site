@@ -16,7 +16,7 @@
 }
 
 .shimmer {
-  background: linear-gradient(100deg, var(--color-line) 30%, #e9edf1 50%, var(--color-line) 70%);
+  background: linear-gradient(100deg, var(--color-line) 30%, color-mix(in srgb, var(--color-line) 40%, var(--color-paper)) 50%, var(--color-line) 70%);
   background-size: 300% 100%;
   animation: sweep 1.4s ease-in-out infinite;
 }
@@ -67,7 +67,7 @@
 .barFill {
   height: 100%;
   border-radius: 999px;
-  background: var(--color-navy);
+  background: var(--color-heading);
   transition: width 0.5s;
 }
 
@@ -76,8 +76,8 @@
   width: 1rem;
   height: 1rem;
   border-radius: 50%;
-  border: 2px solid rgb(28 47 69 / 0.2);
-  border-top-color: var(--color-navy);
+  border: 2px solid color-mix(in srgb, var(--color-heading) 20%, transparent);
+  border-top-color: var(--color-heading);
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin {
