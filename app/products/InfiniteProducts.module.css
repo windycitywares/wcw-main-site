@@ -1,0 +1,87 @@
+/* Matches the product grid in components/ProductCard (3 columns beside the filters on wide screens). */
+.skeletons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1rem;
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+@media (min-width: 640px) {
+  .skeletons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
+    margin-top: 2rem;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(100deg, var(--color-line) 30%, #e9edf1 50%, var(--color-line) 70%);
+  background-size: 300% 100%;
+  animation: sweep 1.4s ease-in-out infinite;
+}
+@keyframes sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.photo {
+  aspect-ratio: 1;
+  border-radius: 8px;
+}
+.line {
+  height: 0.9rem;
+  width: 80%;
+  margin-top: 0.9rem;
+  border-radius: 999px;
+}
+.lineShort {
+  height: 0.8rem;
+  width: 35%;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  font-size: 0.9rem;
+  color: var(--color-steel);
+  text-align: center;
+}
+
+.bar {
+  width: 12rem;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-line);
+  overflow: hidden;
+}
+.barFill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-navy);
+  transition: width 0.5s;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid rgb(28 47 69 / 0.2);
+  border-top-color: var(--color-navy);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

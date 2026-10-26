@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ProductGrid } from "@/components/ProductCard/ProductCard";
 import { getCollections, getFacets, getProducts, type ProductQuery } from "@/lib/api";
 import { shopLink } from "@/lib/site";
 import { FiltersDisclosure } from "./FiltersDisclosure";
+import { InfiniteProducts } from "./InfiniteProducts";
 import styles from "./products.module.css";
 import { ShopLink } from "@/components/ShopLink/ShopLink";
 
@@ -40,6 +40,11 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
   const pages = Math.max(1, Math.ceil(result.total / PAGE_SIZE));
   const active = collections.find((c) => c.slug === filters.category);
   const filtered = Boolean(filters.category || filters.min_price || filters.max_price || filters.in_stock);
+
+  // The listing query the scrolling grid keeps using for the next pages (everything but `page`).
+  const listQuery = new URLSearchParams(
+    Object.entries({ ...filters, page_size: String(PAGE_SIZE) }).filter(([, v]) => v),
+  ).toString();
 
   const pageHref = (n: number) => {
     const qs = new URLSearchParams(Object.entries({ ...filters, page: n > 1 ? String(n) : "" }).filter(([, v]) => v && v !== "newest"));
@@ -141,11 +146,18 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         <section aria-labelledby="results-title">
           <h2 id="results-title" className={styles.count} aria-live="polite">
             {result.total} {result.total === 1 ? "item" : "items"}
-            {pages > 1 && ` · page ${page} of ${pages}`}
           </h2>
 
           {result.items.length ? (
-            <ProductGrid products={result.items} priorityCount={4} />
+            <InfiniteProducts
+              key={listQuery}
+              initial={result.items}
+              total={result.total}
+              startPage={page}
+              pageSize={PAGE_SIZE}
+              query={listQuery}
+              priorityCount={3}
+            />
           ) : (
             <div className={styles.empty}>
               <p>Nothing matches these filters.</p>
@@ -158,7 +170,9 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
             </div>
           )}
 
+          {/* Without JavaScript (and for search engines) the previous/next pages remain. */}
           {pages > 1 && (
+            <noscript>
             <nav aria-label="Pages" className={styles.pager}>
               {page > 1 ? (
                 <Link href={pageHref(page - 1)} className="btn btn-ghost" rel="prev">
@@ -173,6 +187,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
                 </Link>
               )}
             </nav>
+            </noscript>
           )}
         </section>
       </div>
