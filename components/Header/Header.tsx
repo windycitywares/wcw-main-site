@@ -5,6 +5,7 @@ import { getSocial } from "@/lib/api";
 import { shopLink } from "@/lib/site";
 import { NavLinks } from "./NavLinks";
 import styles from "./Header.module.css";
+import { ShopLink } from "@/components/ShopLink/ShopLink";
 
 export async function Header() {
   const social = await getSocial();
@@ -17,9 +18,9 @@ export async function Header() {
 
         <nav aria-label="Main" className={styles.desktopNav}>
           <NavLinks className={styles.links} />
-          <a href={shopLink("/shop")} className="btn">
+          <ShopLink href={shopLink("/shop")} className="btn">
             Shop
-          </a>
+          </ShopLink>
         </nav>
 
         {/* Small screens: a disclosure menu that works without JavaScript */}
@@ -31,9 +32,9 @@ export async function Header() {
           <nav aria-label="Main" className={styles.sheet}>
             <NavLinks className={styles.sheetLinks} />
             <SocialIcons accounts={social} className={styles.sheetSocial} />
-            <a href={shopLink("/shop")} className="btn">
+            <ShopLink href={shopLink("/shop")} className="btn">
               Visit the shop
-            </a>
+            </ShopLink>
           </nav>
         </details>
       </div>

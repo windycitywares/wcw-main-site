@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getProducts } from "@/lib/api";
 import { site, shopLink } from "@/lib/site";
 import styles from "./about.module.css";
+import { ShopLink } from "@/components/ShopLink/ShopLink";
 
 export const revalidate = 3600;
 
@@ -103,9 +104,9 @@ export default async function AboutPage() {
             <Link href="/products" className="btn btn-gold">
               Browse products
             </Link>
-            <a href={shopLink("/shop")} className="btn btn-on-navy">
+            <ShopLink href={shopLink("/shop")} className="btn btn-on-navy">
               Visit the shop
-            </a>
+            </ShopLink>
           </div>
         </section>
       </div>

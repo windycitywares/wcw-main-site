@@ -81,6 +81,11 @@ jobs:
           [ -n "$slug" ] || { echo "::error::could not read a product from $API_URL — is the API address right?"; fail=1; }
           curl -s http://127.0.0.1:3005/ | grep -q 'href="/products/' || { echo "::error::home page shows no products — check API_URL ($API_URL)"; fail=1; }
           curl -s http://127.0.0.1:3005/ | grep -q 'shop.windycitywares.com/category/' || { echo "::error::home page shows no collections — check API_URL ($API_URL)"; fail=1; }
+          # Links to the shop and Etsy open in a new tab (components/ShopLink) — none may be left without it.
+          for path in / /products "/products/$slug" /about /contact; do
+            n=$(curl -s "http://127.0.0.1:3005$path" | grep -o '<a [^>]*href="https://\(shop\.windycitywares\.com\|www\.etsy\.com\)[^>]*>' | grep -vc 'target="_blank"' || true)
+            [ "$n" = 0 ] || { echo "::error::$path has $n shop/Etsy link(s) that don't open in a new tab — use <ShopLink>"; fail=1; }
+          done
           curl -s "http://127.0.0.1:3005/products/$slug" | grep -q "shop.windycitywares.com/product/$slug" || { echo "::error::no shop link on product page"; fail=1; }
           code=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{"email":""}' http://127.0.0.1:3005/api/newsletter)
           echo "::notice title=smoke newsletter validation::$code (want 400)"; [ "$code" = 400 ] || fail=1

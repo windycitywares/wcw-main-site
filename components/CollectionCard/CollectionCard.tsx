@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { CategoryNode } from "@/lib/types";
 import { shopCategoryUrl } from "@/lib/site";
 import styles from "./CollectionCard.module.css";
+import { ShopLink } from "@/components/ShopLink/ShopLink";
 
 /** A category tile. Opens that category on the shop (shop.windycitywares.com/category/<slug>). */
 export function CollectionCard({
@@ -14,7 +15,7 @@ export function CollectionCard({
   image: string | null;
 }) {
   return (
-    <a href={shopCategoryUrl(collection.slug)} className={styles.card}>
+    <ShopLink href={shopCategoryUrl(collection.slug)} className={styles.card}>
       <span className={styles.media}>
         {image && (
           <Image src={image} alt="" fill sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw" className={styles.img} />
@@ -24,6 +25,6 @@ export function CollectionCard({
       <span className={styles.meta}>
         {total} {total === 1 ? "item" : "items"}
       </span>
-    </a>
+    </ShopLink>
   );
 }
