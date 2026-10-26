@@ -123,6 +123,9 @@ jobs:
           shoot about-desktop /about 1440 900
           shoot contact-desktop /contact 1440 900
           shoot contact-mobile /contact 390 844
+          shoot home-dark "/?theme=midnight" 1440 900
+          shoot product-dark "/products/$slug?theme=midnight" 1440 900
+          shoot products-dark-mobile "/products?theme=midnight" 390 844
           cd ../shots
           git init -q -b previews
           git add -A

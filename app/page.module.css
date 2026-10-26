@@ -122,7 +122,7 @@
   border-bottom: 1px solid var(--color-line);
 }
 .groupTitle a {
-  color: var(--color-navy);
+  color: var(--color-heading);
   text-decoration: none;
 }
 .groupTitle a:hover {

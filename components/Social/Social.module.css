@@ -11,7 +11,7 @@
   place-items: center;
   width: 2.75rem; /* 44px tap target */
   height: 2.75rem;
-  color: var(--color-navy);
+  color: var(--color-heading);
   transition: color 0.15s;
 }
 a.icon:hover,

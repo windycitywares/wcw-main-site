@@ -5,16 +5,22 @@
  * Display type: Big Shoulders (drawn for Chicago's civic signage). Text: Inter.
  */
 @theme {
-  --color-navy: #1c2f45;
-  --color-navy-deep: #132233;
+  /*
+   * Day colours: the shop's light theme ("classic", wcw-shop-portal globals.css), so windycitywares.com,
+   * the shop and the CRM look the same. Night: html[data-theme="midnight"] below, also the shop's.
+   * Bands and buttons use --color-navy (the shop's accent, "lake at dusk"); the footer uses the shop's night.
+   */
+  --color-navy: #2f5468; /* bands and buttons — white text 8.1:1 */
+  --color-navy-deep: #17232b; /* footer and button hover (the shop's "night") */
+  --color-heading: #213e4d; /* headings and links — 10.1:1 on the page */
   --color-gold: #e0a845;
-  --color-gold-ink: #8a5d14; /* gold for text on light backgrounds — 5.5:1 on white */
-  --color-fog: #eef1f4; /* page background: lake fog, cool not cream */
-  --color-paper: #ffffff;
-  --color-ink: #16202b;
-  --color-steel: #56636f; /* secondary text — 5.6:1 on fog */
-  --color-line: #d5dce2;
-  --color-mist: #b8c4cf; /* text on navy — 7.8:1 */
+  --color-gold-ink: #8a5d14; /* gold for text on light backgrounds — 5.2:1 on the page */
+  --color-fog: #f2f3ef; /* page background (the shop's "paper") */
+  --color-paper: #ffffff; /* panels */
+  --color-ink: #1d2730;
+  --color-steel: #55616a; /* secondary text — 5.7:1 on the page */
+  --color-line: #d4d9d2;
+  --color-mist: #d6e0e5; /* secondary text on bands — 6.0:1 */
   --color-danger: #a12a1e;
   --color-success: #2f6b4a;
 
@@ -29,6 +35,38 @@
   --logo-word: #1c2f45;
   --logo-gold: #e0a845;
   --logo-word-gold: #c9902f;
+  color-scheme: light;
+}
+
+/*
+ * Dark theme ("midnight", same name and values as the shop's). The visitor's choice is shared with
+ * shop.windycitywares.com and the CRM through the wcw-theme cookie (lib/theme.ts). Navy stays the
+ * colour of bands and buttons; product photos keep their white mats.
+ */
+html[data-theme="midnight"] {
+  --color-navy: #1f2a35; /* bands and buttons at night — white text 14.6:1 */
+  --color-fog: #0f151c;
+  --color-paper: #17202a;
+  --color-ink: #e8edf1;
+  --color-steel: #a3b0bb; /* 7.6:1 on fog */
+  --color-line: #2c3a47;
+  --color-mist: #a3b0bb; /* 6.6:1 on night bands */
+  --color-heading: #e8edf1;
+  --color-gold-ink: #e3ad4f; /* 8.4:1 on fog */
+  --color-navy-deep: #0a0e13;
+  --color-danger: #ff9585;
+  --color-success: #7fd1a1;
+  --logo-emblem: #ffffff;
+  --logo-letters: #1c2f45;
+  --logo-word: #ffffff;
+  --logo-word-gold: #e3ad4f;
+  color-scheme: dark;
+}
+
+/* A short cross-fade while switching themes (not on page load) */
+html.theme-switching,
+html.theme-switching * {
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s !important;
 }
 
 html {
@@ -90,7 +128,7 @@ main {
     font-weight: 700;
     letter-spacing: 0.005em;
     line-height: 0.95;
-    color: var(--color-navy);
+    color: var(--color-heading);
   }
 
   .h2 {
@@ -98,7 +136,7 @@ main {
     font-weight: 700;
     font-size: clamp(2rem, 4.5vw, 3rem);
     line-height: 1;
-    color: var(--color-navy);
+    color: var(--color-heading);
   }
 
   .lead {
@@ -146,7 +184,8 @@ main {
   }
   .btn-ghost {
     background: transparent;
-    color: var(--color-navy);
+    color: var(--color-heading);
+    border-color: var(--color-heading);
   }
   .btn-ghost:hover {
     background: var(--color-navy);
@@ -167,7 +206,7 @@ main {
   }
 
   .link {
-    color: var(--color-navy);
+    color: var(--color-heading);
     text-decoration: underline;
     text-decoration-color: var(--color-gold);
     text-decoration-thickness: 2px;
@@ -184,13 +223,13 @@ main {
     padding: 0.6rem 0.8rem;
     border: 1px solid var(--color-line);
     border-radius: 6px;
-    background: #fff;
+    background: var(--color-paper);
     color: var(--color-ink);
     font: inherit;
   }
   .field:focus-visible {
     outline-offset: 0;
-    border-color: var(--color-navy);
+    border-color: var(--color-heading);
   }
   .label {
     display: block;
@@ -208,4 +247,16 @@ main {
     clip: rect(0 0 0 0);
     white-space: nowrap;
   }
+}
+
+/* The marketplaces band is drawn by the shop's embed script with fixed light colours: follow the dark theme here. */
+html[data-theme="midnight"] .wcw-mk p,
+html[data-theme="midnight"] .wcw-mk .s {
+  color: var(--color-steel);
+}
+html[data-theme="midnight"] .wcw-mk a,
+html[data-theme="midnight"] .wcw-mk .soon {
+  background: var(--color-paper);
+  border-color: var(--color-line);
+  color: var(--color-ink);
 }

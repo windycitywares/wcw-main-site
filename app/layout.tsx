@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, Inter } from "next/font/google";
 import Script from "next/script";
+import { themeBootScript } from "@/lib/theme";
 import { SocialRail } from "@/components/Social/Social";
 import { getSocial } from "@/lib/api";
 import { Header } from "@/components/Header/Header";
@@ -26,12 +27,16 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: "/favicon.ico" }, { url: "/brand/windycitywares-emblem.svg", type: "image/svg+xml" }] },
 };
 
-export const viewport: Viewport = { themeColor: "#1c2f45" };
+export const viewport: Viewport = { themeColor: "#f2f3ef" }; // the dark theme swaps it (lib/theme.ts)
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const social = await getSocial();
   return (
-    <html lang="en" className={`${inter.variable} ${bigShoulders.variable}`}>
+    <html data-theme="classic" suppressHydrationWarning lang="en" className={`${inter.variable} ${bigShoulders.variable}`}>
+      <head>
+        {/* Applies the visitor's light/dark choice (shared with the shop and CRM) before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body>
         <a href="#main" className="sr-only-focusable btn" style={{ position: "absolute", left: 16, top: 12, zIndex: 50 }}>
           Skip to content
