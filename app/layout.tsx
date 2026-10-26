@@ -5,6 +5,7 @@ import { SocialRail } from "@/components/Social/Social";
 import { getSocial } from "@/lib/api";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
+import { BackToTop } from "@/components/BackToTop/BackToTop";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -36,11 +37,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           Skip to content
         </a>
         <Header />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
         {/* Marketplaces band: managed in the shop's Admin → Settings → Marketplaces and served by the shop. */}
         <div id="wcw-marketplaces" />
         <Script src="https://shop.windycitywares.com/embed/marketplaces.js" strategy="lazyOnload" />
         <Footer />
+        <BackToTop />
         <SocialRail accounts={social} />
       </body>
     </html>
