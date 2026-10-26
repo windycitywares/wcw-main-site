@@ -9,7 +9,7 @@
 export const THEME_COOKIE = "wcw-theme";
 export const THEMES = ["classic", "midnight"] as const;
 export type ThemeId = (typeof THEMES)[number];
-export const THEME_COLOR: Record<ThemeId, string> = { classic: "#1c2f45", midnight: "#0f151c" };
+export const THEME_COLOR: Record<ThemeId, string> = { classic: "#f2f3ef", midnight: "#0f151c" }; // the shop's values
 
 /** `; domain=.windycitywares.com` on our own sites, nothing elsewhere (localhost, CI). */
 function cookieDomain(): string {

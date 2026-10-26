@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: "/favicon.ico" }, { url: "/brand/windycitywares-emblem.svg", type: "image/svg+xml" }] },
 };
 
-export const viewport: Viewport = { themeColor: "#1c2f45" }; // the dark theme swaps it (lib/theme.ts)
+export const viewport: Viewport = { themeColor: "#f2f3ef" }; // the dark theme swaps it (lib/theme.ts)
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const social = await getSocial();

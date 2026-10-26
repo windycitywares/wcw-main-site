@@ -5,17 +5,22 @@
  * Display type: Big Shoulders (drawn for Chicago's civic signage). Text: Inter.
  */
 @theme {
-  --color-navy: #1c2f45;
-  --color-navy-deep: #132233;
-  --color-heading: #1c2f45; /* headings and links: navy on light, light on dark */
+  /*
+   * Day colours: the shop's light theme ("classic", wcw-shop-portal globals.css), so windycitywares.com,
+   * the shop and the CRM look the same. Night: html[data-theme="midnight"] below, also the shop's.
+   * Bands and buttons use --color-navy (the shop's accent, "lake at dusk"); the footer uses the shop's night.
+   */
+  --color-navy: #2f5468; /* bands and buttons — white text 8.1:1 */
+  --color-navy-deep: #17232b; /* footer and button hover (the shop's "night") */
+  --color-heading: #213e4d; /* headings and links — 10.1:1 on the page */
   --color-gold: #e0a845;
-  --color-gold-ink: #8a5d14; /* gold for text on light backgrounds — 5.5:1 on white */
-  --color-fog: #eef1f4; /* page background: lake fog, cool not cream */
-  --color-paper: #ffffff;
-  --color-ink: #16202b;
-  --color-steel: #56636f; /* secondary text — 5.6:1 on fog */
-  --color-line: #d5dce2;
-  --color-mist: #b8c4cf; /* text on navy — 7.8:1 */
+  --color-gold-ink: #8a5d14; /* gold for text on light backgrounds — 5.2:1 on the page */
+  --color-fog: #f2f3ef; /* page background (the shop's "paper") */
+  --color-paper: #ffffff; /* panels */
+  --color-ink: #1d2730;
+  --color-steel: #55616a; /* secondary text — 5.7:1 on the page */
+  --color-line: #d4d9d2;
+  --color-mist: #d6e0e5; /* secondary text on bands — 6.0:1 */
   --color-danger: #a12a1e;
   --color-success: #2f6b4a;
 
@@ -39,12 +44,13 @@
  * colour of bands and buttons; product photos keep their white mats.
  */
 html[data-theme="midnight"] {
+  --color-navy: #1f2a35; /* bands and buttons at night — white text 14.6:1 */
   --color-fog: #0f151c;
   --color-paper: #17202a;
   --color-ink: #e8edf1;
   --color-steel: #a3b0bb; /* 7.6:1 on fog */
   --color-line: #2c3a47;
-  --color-mist: #a3b0bb;
+  --color-mist: #a3b0bb; /* 6.6:1 on night bands */
   --color-heading: #e8edf1;
   --color-gold-ink: #e3ad4f; /* 8.4:1 on fog */
   --color-navy-deep: #0a0e13;
