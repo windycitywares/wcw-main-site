@@ -35,6 +35,10 @@ export async function Footer() {
             <li><ShopLink href={shopLink("/shop")}>All products</ShopLink></li>
             <li><ShopLink href={shopLink("/cart")}>Your cart</ShopLink></li>
             <li><ShopLink href={shopLink("/account")}>Your account</ShopLink></li>
+            <li><ShopLink href={shopLink("/help/shipping")}>Shipping</ShopLink></li>
+            <li><ShopLink href={shopLink("/help/returns")}>Returns</ShopLink></li>
+            <li><ShopLink href={shopLink("/help/privacy")}>Privacy policy</ShopLink></li>
+            <li><ShopLink href={shopLink("/help/terms")}>Terms of sale</ShopLink></li>
           </ul>
         </nav>
       </div>
